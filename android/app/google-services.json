@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719651971701",
+    "project_id": "xtwitter-app",
+    "storage_bucket": "xtwitter-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719651971701:android:d80cf402246090b45dce3c",
+        "android_client_info": {
+          "package_name": "com.example.demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmZN_NxGbQl9851vgCXTqkSUfQq6BAoVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
