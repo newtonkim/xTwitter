@@ -1,4 +1,6 @@
 
+import 'package:demo/providers/user_provider.dart';
+
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/Screens/home.dart';
@@ -19,18 +21,19 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            ref.read(userProvider.notifier).login(snapshot.data!.email!);
             return const Home();
           }
           return SignIn();
