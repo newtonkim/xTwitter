@@ -1,16 +1,18 @@
+import 'package:demo/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/Screens/sign_up.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SignIn extends StatefulWidget {
+class SignIn extends ConsumerStatefulWidget {
   const SignIn({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  ConsumerState<SignIn> createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInState extends ConsumerState<SignIn> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _signInKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
@@ -99,18 +101,19 @@ class _SignInState extends State<SignIn> {
                   onPressed: () async {
                     if (_signInKey.currentState!.validate()) {
                       try  { 
-                       await  _auth.signInWithEmailAndPassword(
+                       await _auth.signInWithEmailAndPassword(
                           email: emailController.text,
                           password: passwordController.text,
                         );
+                        ref.read(userProvider.notifier).login(emailController.text);
                       } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                           SnackBar(content: Text(e.toString())),
+                        ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(e.toString())),
                         );
                       }
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     'Log In',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
@@ -124,7 +127,7 @@ class _SignInState extends State<SignIn> {
                   ).push(MaterialPageRoute(builder: (context) => SignUp()));
                 },
                 child: Text(
-                  "Don't have an account ? Sign up here",
+                   "Don't have an account ? Sign up here",
                   style: TextStyle(color: Colors.blue),
                 ),
               ),

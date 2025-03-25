@@ -1,15 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/models/user.dart';
+import 'package:demo/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SignUp extends StatefulWidget {
+class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  ConsumerState<SignUp> createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpState extends ConsumerState<SignUp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final  GlobalKey<FormState> _signInKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
@@ -93,10 +97,15 @@ class _SignUpState extends State<SignUp> {
                   onPressed: ()async {
                     if(_signInKey.currentState!.validate()){
                       try  { 
-                         await  _auth.createUserWithEmailAndPassword(
+                         await _auth.createUserWithEmailAndPassword(
                             email: emailController.text,
                             password: passwordController.text,
                           );
+                           await ref
+                              .read(userProvider.notifier)
+                              .signUp(emailController.text);
+                          if(!mounted) return;
+                            Navigator.of(context).pop();
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                              SnackBar(content: Text(e.toString())),
