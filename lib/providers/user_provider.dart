@@ -69,8 +69,8 @@ class UserNotifier extends StateNotifier<LocalUser> {
           FirebaseUser(
             email: email, 
             name: "No Name", 
-            profilePic: "https://www.gravatar.com/avatar/?d=mp")
-            .toMap(),
+            profilePic: "https://picsum.photos/200/300?grayscale")
+          .toMap(),
         );
         DocumentSnapshot snapshot = await response.get();
 

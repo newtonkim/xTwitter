@@ -29,6 +29,14 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue, 
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue, 
+          centerTitle: true, // Centers the AppBar title
+        ),
+       
+      ),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
