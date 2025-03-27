@@ -29,15 +29,6 @@ class Home extends ConsumerWidget {
             );
           }
         ),
-        actions: [TextButton(onPressed: (){
-          FirebaseAuth.instance.signOut();
-          ref.read(userProvider.notifier).logout();
-        }, child: Text(
-            "Sign Out",
-            style: TextStyle(
-              color: const Color.fromARGB(255, 245, 245, 245)
-              ),
-          ))],
       ),
       body: Column(
         children: [
@@ -45,13 +36,15 @@ class Home extends ConsumerWidget {
          Text(currentUser.user.name),
         ],
       ),
-      drawer: Drawer(child: Column(
-        children: [
-          Container(
-        alignment: Alignment.topLeft, 
+      drawer: Drawer(
+  child: Column(
+    children: [
+      SizedBox(
+        width: double.infinity, 
+        height: 300, 
         child: Image.network(
           currentUser.user.profilePic,
-          fit: BoxFit.cover,
+          fit: BoxFit.cover, 
         ),
       ),
 
@@ -68,11 +61,20 @@ class Home extends ConsumerWidget {
       ListTile(
         title: Text("Settings"),
         onTap: () {
+          Navigator.pop(context);
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const 
            Settings(),
           ),
           );
+        } ,
+      ),
+
+      ListTile(
+        title: Text("Sign Out"),
+        onTap: () {
+          FirebaseAuth.instance.signOut();
+          ref.read(userProvider.notifier).logout();
         } ,
       )
         ]

@@ -62,7 +62,10 @@ class UserNotifier extends StateNotifier<LocalUser> {
     );
   }
 
+    //CRUD
+    //1.  ********************************** Create  *********************************
   Future<void> signUp(String email) async {
+
     DocumentReference response = await _firestore
         .collection("users")
         .add(
@@ -72,10 +75,30 @@ class UserNotifier extends StateNotifier<LocalUser> {
             profilePic: "https://picsum.photos/200/300?grayscale")
           .toMap(),
         );
+  // ********************************* End of create *********************************
+
+
+  // 2.  ********************************* Read *********************************
         DocumentSnapshot snapshot = await response.get();
+
+  // ********************************* End of Read *********************************
 
     state = LocalUser(id: response.id, user: FirebaseUser.fromMap(snapshot.data() as Map<String, dynamic>));
   }
+
+  //3. ********************************* Update *********************************
+  Future<void> updateName(String name) async {
+    await _firestore
+        .collection("users")
+        .doc(state.id)
+        .update({"name": name});
+
+  //updating the local userstate
+    state = state.copyWith(user: state.user.copyWith(name: name));
+  }
+
+  // ********************************* End of Update *********************************
+
 
   void logout() {
     state = const LocalUser(
