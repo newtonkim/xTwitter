@@ -1,9 +1,8 @@
 import 'dart:io';
-
-import 'package:demo/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:demo/providers/user_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({super.key});

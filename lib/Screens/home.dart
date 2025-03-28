@@ -1,5 +1,6 @@
-import 'package:demo/Screens/settings.dart';
+import 'package:demo/Screens/create_tweet.dart';
 import 'package:flutter/material.dart';
+import 'package:demo/Screens/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:demo/providers/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -79,6 +80,18 @@ class Home extends ConsumerWidget {
       )
         ]
       ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const 
+           CreateTweet(),
+          ),
+          );
+        }, 
+        child: const Icon(
+          Icons.add
+        ),
       ),
     );
   }
