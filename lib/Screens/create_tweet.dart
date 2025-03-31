@@ -5,7 +5,7 @@ class CreateTweet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _tweetController = TextEditingController();
+    TextEditingController tweetController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Post a Tweet")),
@@ -21,7 +21,7 @@ class CreateTweet extends StatelessWidget {
                     ),
                   ),
                 ),
-                  controller: _tweetController,
+                  controller: tweetController,
               ),
             )
         ])
