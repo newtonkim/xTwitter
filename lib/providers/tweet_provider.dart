@@ -3,6 +3,22 @@ import 'package:demo/models/tweet.dart';
 import 'package:demo/providers/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final feedProvider = StreamProvider.autoDispose<List<Tweet>>((ref) {
+  return FirebaseFirestore.instance
+      .collection("tweets")
+      .orderBy("postTime", descending: true)
+      .snapshots()
+      .map((event){
+        List<Tweet> tweets = [];
+
+        for( int i = 0; i < event.docs.length; i++){
+          tweets.add(Tweet.fromMap(event.docs[i].data()));
+        }
+
+        return tweets;
+      });
+});
+
 final tweetProvider = Provider<TwitterApi>((ref) {
   return TwitterApi(ref);
 });
@@ -15,15 +31,16 @@ class TwitterApi {
   Future<void> postTweet(String tweet) async {
     LocalUser currentUser = ref.watch(userProvider);
 
-    await _firestore.collection("tweets").add(
-      Tweet(
-         tweet: tweet,
-        uid:currentUser.id,
-        name: currentUser.user.name,
-        profilePic: currentUser.user.profilePic,
-        postTime: Timestamp.now(),
-      ).toMap(),
-    );
-
+    await _firestore
+        .collection("tweets")
+        .add(
+          Tweet(
+            tweet: tweet,
+            uid: currentUser.id,
+            name: currentUser.user.name,
+            profilePic: currentUser.user.profilePic,
+            postTime: Timestamp.now(),
+          ).toMap(),
+        );
   }
 }
