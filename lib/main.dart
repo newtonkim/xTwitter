@@ -33,8 +33,15 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue, 
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue, 
-          centerTitle: true, // Centers the AppBar title
+          backgroundColor: Colors.transparent, 
+          shadowColor: Colors.transparent,
+          // backgroundColor: Colors.blue, 
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16
+            ) ,
+          centerTitle: true, 
         ),
        
       ),

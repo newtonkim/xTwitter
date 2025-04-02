@@ -17,7 +17,7 @@ class Home extends ConsumerWidget {
     LocalUser currentUser = ref.watch(userProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home', style: TextStyle(color: Colors.white)),
+        title: const Text('Home'),
         leading: Builder(
           builder: (context) {
             return GestureDetector(
@@ -38,13 +38,17 @@ class Home extends ConsumerWidget {
           .watch(feedProvider)
           .when(
             data: (List<Tweet> tweets) {
-              return ListView.builder(
+              return ListView.separated(
+                separatorBuilder: (context, index) => const Divider(
+                  color: Colors.black,
+                ),
                 itemCount: tweets.length,
                 itemBuilder: (context, count) {
 
                   return ListTile(
                     leading: CircleAvatar(
-                      foregroundImage: NetworkImage(tweets[count].profilePic),),
+                      foregroundImage: NetworkImage(tweets[count].profilePic),
+                      ),
                     title: Text(tweets[count].name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
