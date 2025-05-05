@@ -42,7 +42,7 @@ class _SettingsState extends ConsumerState<Settings> {
                     radius: 100,
                       foregroundImage: NetworkImage(currentUser.user.profilePic),
                   ),
-                ),
+                ), 
                 SizedBox(height: 10,),
                  Center(child: Text("Tap Image to Change"),),
               TextFormField(
